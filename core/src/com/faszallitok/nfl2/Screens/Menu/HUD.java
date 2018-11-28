@@ -46,7 +46,7 @@ public class HUD extends MyStage {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                getGame().setScreen(new MenuScreen(getGame()));
+                if(screen.isPaused) getGame().setScreen(new MenuScreen(getGame()));
             }
         });
         addActor(quit);
@@ -57,7 +57,7 @@ public class HUD extends MyStage {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                screen.isPaused = false;
+                if(screen.isPaused) screen.isPaused = false;
             }
         });
         addActor(back);

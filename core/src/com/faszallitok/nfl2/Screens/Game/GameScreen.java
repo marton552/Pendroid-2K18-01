@@ -17,8 +17,8 @@ public class GameScreen extends MyScreen {
         hud = new HUD(spriteBatch, game, this);
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(hud);
         inputMultiplexer.addProcessor(gameStage);
+        inputMultiplexer.addProcessor(hud);
 
         Gdx.input.setInputProcessor(inputMultiplexer);
     }

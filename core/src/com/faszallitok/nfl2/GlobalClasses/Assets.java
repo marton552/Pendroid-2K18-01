@@ -48,9 +48,17 @@ public class Assets {
 	//Atlasok
 	//public static final AssetDescriptor<TextureAtlas> LOADING_ATLAS = new AssetDescriptor<TextureAtlas>("atlasok/title.atlas", TextureAtlas.class);
 
+	//Szunyog
+	public static final AssetDescriptor<Texture> SZUNYOG = new AssetDescriptor<Texture>("szunyog.png", Texture.class);
+
+
 	//Menu
 	public static final AssetDescriptor<Texture> MENU_BG = new AssetDescriptor<Texture>("bg.png", Texture.class);
 	public static final AssetDescriptor<Texture> MENU_ICON = new AssetDescriptor<Texture>("menu-icon.png", Texture.class);
+
+	//Joy
+	public static final AssetDescriptor<Texture> JOY_FRONT = new AssetDescriptor<Texture>("joy-front.png", Texture.class);
+	public static final AssetDescriptor<Texture> JOY_BACK = new AssetDescriptor<Texture>("joy-back.png", Texture.class);
 
     //Button
 	public static final AssetDescriptor<Texture> BTN_BACK = new AssetDescriptor<Texture>("ui_textures/btn_back.png", Texture.class);
@@ -78,8 +86,14 @@ public class Assets {
 		manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
 		manager.setLoader(BitmapFont.class, ".otf", new FreetypeFontLoader(resolver));
 
+		manager.load(SZUNYOG);
+
 		manager.load(MENU_BG);
 		manager.load(MENU_ICON);
+
+		manager.load(JOY_FRONT);
+		manager.load(JOY_BACK);
+
 
 		manager.load(BTN_BACK);
 		manager.load(BTN_HOVER);
