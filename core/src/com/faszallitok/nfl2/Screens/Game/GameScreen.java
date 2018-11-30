@@ -7,17 +7,20 @@ import com.faszallitok.nfl2.MyGdxGame;
 import com.faszallitok.nfl2.Screens.Menu.HUD;
 
 public class GameScreen extends MyScreen {
-    GameStage gameStage;
-    HUD hud;
+    public GameStage gameStage;
+    public HUD hud;
+    GameHUD gameHud;
     public boolean isPaused = false;
 
     public GameScreen(MyGdxGame game) {
         super(game);
         gameStage = new GameStage(spriteBatch, game, this);
         hud = new HUD(spriteBatch, game, this);
+        gameHud = new GameHUD(spriteBatch, game, this);
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(gameStage);
+        inputMultiplexer.addProcessor(gameHud);
         inputMultiplexer.addProcessor(hud);
 
         Gdx.input.setInputProcessor(inputMultiplexer);
@@ -30,6 +33,9 @@ public class GameScreen extends MyScreen {
         if(!isPaused)
             gameStage.act(delta);
         gameStage.draw();
+
+        gameHud.act(delta);
+        gameHud.draw();
 
         if(isPaused) {
             hud.act();
