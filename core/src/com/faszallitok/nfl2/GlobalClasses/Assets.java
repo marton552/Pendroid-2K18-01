@@ -51,8 +51,6 @@ public class Assets {
 	//Szunyog
 	public static final AssetDescriptor<Texture> SZUNYOG = new AssetDescriptor<Texture>("szunyog.png", Texture.class);
 
-	//Térkép
-	public static final AssetDescriptor<Texture> MAP = new AssetDescriptor<Texture>("map.png", Texture.class);
 
 	//Menu
 	public static final AssetDescriptor<Texture> MENU_BG = new AssetDescriptor<Texture>("bg.png", Texture.class);
@@ -89,7 +87,6 @@ public class Assets {
 		manager.setLoader(BitmapFont.class, ".otf", new FreetypeFontLoader(resolver));
 
 		manager.load(SZUNYOG);
-		manager.load(MAP);
 
 		manager.load(MENU_BG);
 		manager.load(MENU_ICON);
