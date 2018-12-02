@@ -19,8 +19,11 @@ public class GameHUD extends MyStage{
     public float centerX;
     public float centerY;
 
+    private GameScreen screen;
+
     public GameHUD(Batch batch, MyGdxGame game, final GameScreen screen) {
         super(new ExtendViewport(1024, 576, new OrthographicCamera(1024, 576)), batch, game);
+        this.screen = screen;
 
         menu = new OneSpriteStaticActor(Assets.manager.get(Assets.MENU_ICON));
         menu.setSize(30, 30);
@@ -70,13 +73,9 @@ public class GameHUD extends MyStage{
                 //System.out.println("fok: "+getAngle(centerX, centerY, tx, ty));
                 szunyog.setRotation(screen.gameStage.getAngle(centerX, centerY, tx, ty) - 90);
 
-                screen.gameStage.szunyogDirX = screen.gameStage.getViewport().getWorldWidth() - szunyog.getX();
-                screen.gameStage.szunyogDirY = screen.gameStage.getViewport().getWorldHeight() - szunyog.getY();
+                screen.gameStage.szunyogDirX = (float) Math.cos(Math.toRadians(szunyog.getRotation() - 90));
+                screen.gameStage.szunyogDirY = (float) Math.sin(Math.toRadians(szunyog.getRotation() - 90));
 
-                screen.gameStage.szunyogDirX *= Math.cos(Math.toRadians(szunyog.getRotation() + 90));
-                screen.gameStage.szunyogDirY *= Math.sin(Math.toRadians(szunyog.getRotation() + 90));
-
-                //System.out.println("x: "+ x +"");
             }
 
             @Override
@@ -88,6 +87,19 @@ public class GameHUD extends MyStage{
             }
         });
         addActor(joy);
+
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+
+        /*screen.gameStage.szunyogDirX = screen.gameStage.mapW - screen.gameStage.szunyog.getX();
+        screen.gameStage.szunyogDirY = screen.gameStage.mapH - screen.gameStage.szunyog.getY();
+
+        screen.gameStage.szunyogDirX *= Math.cos(Math.toRadians(screen.gameStage.szunyog.getRotation() + 90));
+        screen.gameStage.szunyogDirY *= Math.sin(Math.toRadians(screen.gameStage.szunyog.getRotation() + 90));
+        */
 
     }
 

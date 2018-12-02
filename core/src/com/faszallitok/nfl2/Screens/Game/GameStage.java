@@ -20,13 +20,16 @@ public class GameStage extends MyStage {
 	public float szunyogDirX = 0;
 	public float szunyogDirY = 0;
 
-	public float szunyog_speed = 10f;
+	public int mapW = 3000;
+	public int mapH = 3000;
+
+	public float szunyog_speed = 8;
 
 	public GameStage(Batch batch, MyGdxGame game, final GameScreen screen) {
 		super(new ExtendViewport(1024, 576, new OrthographicCamera(1024, 576)), batch, game);
 
 		OneSpriteStaticActor bg = new OneSpriteStaticActor(Assets.manager.get(Assets.MENU_BG));
-		bg.setSize(getViewport().getWorldWidth(), getViewport().getWorldHeight());
+		bg.setSize(mapW, mapH);
 		addActor(bg);
 
 		szunyog = new OneSpriteStaticActor(Assets.manager.get(Assets.SZUNYOG));
@@ -61,15 +64,31 @@ public class GameStage extends MyStage {
 
 		//setCameraMoveToXY(szunyog.getX() + szunyog.getWidth() / 2, szunyog.getY() + szunyog.getHeight() / 2);
 		//setCameraMoveSpeed(1000f);
+		szunyog.setX(szunyog.getX() - szunyogDirX * szunyog_speed);
+		szunyog.setY(szunyog.getY() - szunyogDirY * szunyog_speed);
+
 		getCamera().position.x = szunyog.getX() + szunyog.getWidth() / 2;
 		getCamera().position.y = szunyog.getY() + szunyog.getHeight() / 2;
 
-		szunyog.setX(szunyog.getX() + szunyogDirX / 180);
-		szunyog.setY(szunyog.getY() + szunyogDirY / 180);
+		//if(szunyogDirX < 0)
+
+
+
+		//System.out.println(szunyog.getX() + "");
+		//szunyog.setY(szunyog.getY() + szunyogDirY / 1000);
+
+
+		//if(szunyogDirX > 0)
+		//	szunyog.setX(szunyog.getX() + (szunyog.getX() - szunyogDirX) / szunyog_speed);
+
+
+		//if(szunyogDirY != 0)
 
 		//Minél távolabb van a szélétől annál gyorsabb. Ezt javtsd.
 
-		System.out.println("dirx: "+szunyogDirX + ", diry: "+szunyogDirY);
+
+		//if(szunyogDirX != 0)
+		//System.out.println("dirx: "+ (szunyogDirX ) + ", diry: "+szunyogDirY);
 
 	}
 
