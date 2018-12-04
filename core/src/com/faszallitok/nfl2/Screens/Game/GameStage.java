@@ -25,6 +25,18 @@ public class GameStage extends MyStage {
 
 	public float szunyog_speed = 8;
 
+	public float HUNGER = 0; //Éhség
+	public float hungerIncr = 0.02f; //Milyen éhes legyen időközönként
+	public boolean isSucking = false; //Jelenleg vért szív-e
+	public float suckTime = 100; //Mennyi idő egy szívás
+	public float currSuckTime = 0; //Mennyi ideje szívott
+	public float suckSpeed = 1; //Szívás gyorsaság
+	public float suckHunger = 10; //Mennyi éhséget vonjon szívás után
+
+	public int lastStrike = 0; //Hány actnyira volt az utolsó csapás
+	public int strikeRarity = 100; //Milyen gyakran legyen csapás(maximum)
+
+
 	public GameStage(Batch batch, MyGdxGame game, final GameScreen screen) {
 		super(new ExtendViewport(1024, 576, new OrthographicCamera(1024, 576)), batch, game);
 
@@ -69,6 +81,20 @@ public class GameStage extends MyStage {
 
 		getCamera().position.x = szunyog.getX() + szunyog.getWidth() / 2;
 		getCamera().position.y = szunyog.getY() + szunyog.getHeight() / 2;
+
+
+		HUNGER += hungerIncr;
+		//isSucking = true;
+
+		if(isSucking) {
+			if(currSuckTime >= suckTime){
+				isSucking = false;
+				HUNGER -= suckHunger;
+				if(HUNGER < 0) HUNGER = 0;
+				currSuckTime = 0;
+			}else
+			currSuckTime += suckSpeed;
+		}
 
 		//if(szunyogDirX < 0)
 

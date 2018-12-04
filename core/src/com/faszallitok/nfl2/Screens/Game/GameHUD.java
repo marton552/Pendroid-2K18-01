@@ -1,6 +1,8 @@
 package com.faszallitok.nfl2.Screens.Game;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -10,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.faszallitok.nfl2.GlobalClasses.Assets;
 import com.faszallitok.nfl2.MyBaseClasses.Scene2D.MyStage;
 import com.faszallitok.nfl2.MyBaseClasses.Scene2D.OneSpriteStaticActor;
+import com.faszallitok.nfl2.MyBaseClasses.UI.MyLabel;
 import com.faszallitok.nfl2.MyGdxGame;
 
 public class GameHUD extends MyStage{
@@ -20,6 +23,13 @@ public class GameHUD extends MyStage{
     public float centerY;
 
     private GameScreen screen;
+
+    Pixmap hungerPixmap;
+    OneSpriteStaticActor hungerActor;
+
+    Pixmap suckPixmap;
+    OneSpriteStaticActor suckActor;
+    MyLabel suckLabel;
 
     public GameHUD(Batch batch, MyGdxGame game, final GameScreen screen) {
         super(new ExtendViewport(1024, 576, new OrthographicCamera(1024, 576)), batch, game);
@@ -88,11 +98,68 @@ public class GameHUD extends MyStage{
         });
         addActor(joy);
 
+
+        hungerPixmap = new Pixmap(200, 20, Pixmap.Format.RGBA8888);
+        hungerActor = new OneSpriteStaticActor(new Texture(hungerPixmap));
+        updateHungerBar(screen.gameStage.HUNGER);
+
+        hungerActor.setPosition(10,getViewport().getWorldHeight() - hungerActor.getHeight() - 10);
+        addActor(hungerActor);
+
+        suckPixmap = new Pixmap(400, 10, Pixmap.Format.RGBA8888);
+        suckActor = new OneSpriteStaticActor(new Texture(suckPixmap));
+        updateSuckBar(screen.gameStage.suckTime - screen.gameStage.currSuckTime);
+
+        suckActor.setPosition(getViewport().getWorldWidth() / 2 - suckActor.getWidth() / 2,getViewport().getWorldHeight() - 100);
+        suckActor.setVisible(false);
+        addActor(suckActor);
+
+        suckLabel = new MyLabel("Szívás...", game.getLabelStyle());
+        suckLabel.setFontScale(0.7f);
+        suckLabel.setPosition(getViewport().getWorldWidth() / 2 - (suckLabel.getWidth() * 0.5f) / 2,
+                              suckActor.getY() + 10);
+        suckLabel.setVisible(false);
+        addActor(suckLabel);
+
+    }
+
+    void updateSuckBar(float currSuck) {
+        suckPixmap.setColor(0, 0, 0, 0);
+        suckPixmap.fill();
+        suckPixmap.setColor(1, 1, 1, 0.7f);
+        suckPixmap.fillRectangle(0, 0, (int)(currSuck * 4), 10);
+        suckPixmap.setColor(1, 1, 1, 1);
+        suckPixmap.drawRectangle(0, 0, 400, 10);
+
+        suckActor.setTexture(new Texture(suckPixmap));
+    }
+
+    void updateHungerBar(float hunger) {
+        hungerPixmap.setColor(0, 0, 0, 0);
+        hungerPixmap.fill();
+        hungerPixmap.setColor(1, 0.76f, 0, 0.7f);
+        hungerPixmap.fillRectangle(0, 0, (int)(hunger * 2), 20);
+        hungerPixmap.setColor(1, 0.76f, 0, 1);
+        hungerPixmap.drawRectangle(0, 0, 200, 20);
+
+        hungerActor.setTexture(new Texture(hungerPixmap));
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
+
+        updateHungerBar(screen.gameStage.HUNGER);
+
+        if(screen.gameStage.isSucking) {
+            suckLabel.setVisible(true);
+            suckActor.setVisible(true);
+            updateSuckBar(screen.gameStage.suckTime - screen.gameStage.currSuckTime);
+        }
+        else {
+            suckLabel.setVisible(false);
+            suckActor.setVisible(false);
+        }
 
         /*screen.gameStage.szunyogDirX = screen.gameStage.mapW - screen.gameStage.szunyog.getX();
         screen.gameStage.szunyogDirY = screen.gameStage.mapH - screen.gameStage.szunyog.getY();
