@@ -24,6 +24,7 @@ public class GameScreen extends MyScreen {
         inputMultiplexer.addProcessor(hud);
 
         Gdx.input.setInputProcessor(inputMultiplexer);
+        this.setBackGroundColor(1, 1, 1);
     }
 
     @Override

@@ -49,18 +49,31 @@ public class Assets {
 	//public static final AssetDescriptor<TextureAtlas> LOADING_ATLAS = new AssetDescriptor<TextureAtlas>("atlasok/title.atlas", TextureAtlas.class);
 
 	//Szunyog
-	public static final AssetDescriptor<Texture> SZUNYOG = new AssetDescriptor<Texture>("szunyog.png", Texture.class);
+	public static final AssetDescriptor<Texture> SZUNYOG = new AssetDescriptor<Texture>("game/szunyog.png", Texture.class);
+	public static final AssetDescriptor<Texture> SZUNYOG_SUCK = new AssetDescriptor<Texture>("game/szunyog-suck.png", Texture.class);
 
-	//Térkép
+	//Maps
 	public static final AssetDescriptor<Texture> MAP = new AssetDescriptor<Texture>("map.png", Texture.class);
+	public static final AssetDescriptor<Texture> ARM_MAP = new AssetDescriptor<Texture>("game/kez-map.png", Texture.class);
+
+	//Other
+	public static final AssetDescriptor<Texture> SUCKED_AREA = new AssetDescriptor<Texture>("game/sucked-area.png", Texture.class);
+	public static final AssetDescriptor<Texture> SUCK_MARK = new AssetDescriptor<Texture>("game/suck-mark.png", Texture.class);
 
 	//Menu
 	public static final AssetDescriptor<Texture> MENU_BG = new AssetDescriptor<Texture>("bg.png", Texture.class);
 	public static final AssetDescriptor<Texture> MENU_ICON = new AssetDescriptor<Texture>("menu-icon.png", Texture.class);
 
-	//Joy
+	//Controller
 	public static final AssetDescriptor<Texture> JOY_FRONT = new AssetDescriptor<Texture>("joy-front.png", Texture.class);
 	public static final AssetDescriptor<Texture> JOY_BACK = new AssetDescriptor<Texture>("joy-back.png", Texture.class);
+
+	public static final AssetDescriptor<Texture> EAT = new AssetDescriptor<Texture>("game/eat.png", Texture.class);
+	public static final AssetDescriptor<Texture> DASH = new AssetDescriptor<Texture>("game/dash.png", Texture.class);
+
+	public static final AssetDescriptor<Texture> EAT_CD = new AssetDescriptor<Texture>("game/eat-cd.png", Texture.class);
+	public static final AssetDescriptor<Texture> DASH_CD = new AssetDescriptor<Texture>("game/dash-cd.png", Texture.class);
+
 
     //Button
 	public static final AssetDescriptor<Texture> BTN_BACK = new AssetDescriptor<Texture>("ui_textures/btn_back.png", Texture.class);
@@ -89,13 +102,22 @@ public class Assets {
 		manager.setLoader(BitmapFont.class, ".otf", new FreetypeFontLoader(resolver));
 
 		manager.load(SZUNYOG);
+		manager.load(SZUNYOG_SUCK);
 		manager.load(MAP);
+		manager.load(ARM_MAP);
+
+		manager.load(SUCKED_AREA);
+		manager.load(SUCK_MARK);
 
 		manager.load(MENU_BG);
 		manager.load(MENU_ICON);
 
 		manager.load(JOY_FRONT);
 		manager.load(JOY_BACK);
+		manager.load(EAT);
+		manager.load(DASH);
+		manager.load(EAT_CD);
+		manager.load(DASH_CD);
 
 
 		manager.load(BTN_BACK);

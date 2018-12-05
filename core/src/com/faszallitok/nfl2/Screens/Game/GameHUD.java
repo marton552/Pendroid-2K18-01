@@ -1,5 +1,6 @@
 package com.faszallitok.nfl2.Screens.Game;
 
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -30,6 +31,10 @@ public class GameHUD extends MyStage{
     Pixmap suckPixmap;
     OneSpriteStaticActor suckActor;
     MyLabel suckLabel;
+
+    OneSpriteStaticActor dash;
+    OneSpriteStaticActor eat;
+
 
     public GameHUD(Batch batch, MyGdxGame game, final GameScreen screen) {
         super(new ExtendViewport(1024, 576, new OrthographicCamera(1024, 576)), batch, game);
@@ -99,6 +104,27 @@ public class GameHUD extends MyStage{
         addActor(joy);
 
 
+        dash = new OneSpriteStaticActor(Assets.manager.get(Assets.DASH));
+        dash.setSize(dash.getWidth() / 5, dash.getHeight() / 5);
+        dash.setPosition(20, 20);
+        dash.setDebug(true);
+        addActor(dash);
+
+        eat = new OneSpriteStaticActor(Assets.manager.get(Assets.EAT));
+        eat.setSize(eat.getWidth() / 5, eat.getHeight() / 5);
+        eat.setPosition(dash.getX() + dash.getWidth() + 10, dash.getY() + dash.getHeight());
+        eat.setDebug(true);
+        eat.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                screen.gameStage.suckBlood();
+            }
+        });
+        addActor(eat);
+
+
+
         hungerPixmap = new Pixmap(200, 20, Pixmap.Format.RGBA8888);
         hungerActor = new OneSpriteStaticActor(new Texture(hungerPixmap));
         updateHungerBar(screen.gameStage.HUNGER);
@@ -155,10 +181,12 @@ public class GameHUD extends MyStage{
             suckLabel.setVisible(true);
             suckActor.setVisible(true);
             updateSuckBar(screen.gameStage.suckTime - screen.gameStage.currSuckTime);
+            eat.setTexture(Assets.manager.get(Assets.EAT_CD));
         }
         else {
             suckLabel.setVisible(false);
             suckActor.setVisible(false);
+            eat.setTexture(Assets.manager.get(Assets.EAT));
         }
 
         /*screen.gameStage.szunyogDirX = screen.gameStage.mapW - screen.gameStage.szunyog.getX();
