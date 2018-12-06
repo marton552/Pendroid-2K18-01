@@ -13,6 +13,7 @@ import com.faszallitok.nfl2.MyBaseClasses.UI.MyButton;
 import com.faszallitok.nfl2.MyGdxGame;
 import com.faszallitok.nfl2.Screens.About.AboutScreen;
 import com.faszallitok.nfl2.Screens.Game.GameScreen;
+import com.faszallitok.nfl2.Screens.LevelSelect.LevelSelectScreen;
 
 public class MenuStage extends MyStage {
 
@@ -28,19 +29,21 @@ public class MenuStage extends MyStage {
 
         addActor(bg);
 
+        float w = getViewport().getWorldWidth();
+
         play = new MyButton("Játék", game.getButtonStyle());
-        play.setPosition(50, 250);
+        play.setPosition(w - 50 - play.getWidth(), 250);
         play.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                getGame().setScreen(new GameScreen(getGame()));
+                getGame().setScreen(new LevelSelectScreen(getGame()));
             }
         });
         addActor(play);
 
         about = new MyButton("A Játékról", game.getButtonStyle());
-        about.setPosition(50, 190);
+        about.setPosition(w - 50 - about.getWidth(), 190);
         about.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -51,7 +54,7 @@ public class MenuStage extends MyStage {
         addActor(about);
 
         quit = new MyButton("Kilépés", game.getButtonStyle());
-        quit.setPosition(50, 130);
+        quit.setPosition(w - 50 - quit.getWidth(), 130);
         quit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

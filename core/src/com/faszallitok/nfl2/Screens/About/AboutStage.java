@@ -21,7 +21,7 @@ public class AboutStage extends MyStage {
     public AboutStage(Batch batch, MyGdxGame game) {
         super(new ExtendViewport(1024, 576, new OrthographicCamera(1024, 576)), batch, game);
 
-        OneSpriteStaticActor bg = new OneSpriteStaticActor(Assets.manager.get(Assets.MENU_BG));
+        OneSpriteStaticActor bg = new OneSpriteStaticActor(Assets.manager.get(Assets.BG));
         bg.setSize(getViewport().getWorldWidth(), getViewport().getWorldHeight());
         addActor(bg);
 

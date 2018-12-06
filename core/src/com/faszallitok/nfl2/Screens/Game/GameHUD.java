@@ -50,16 +50,24 @@ public class GameHUD extends MyStage{
                 screen.isPaused = true;
             }
         });
+
+
+        OneSpriteStaticActor menu_bg = new OneSpriteStaticActor(Assets.manager.get(Assets.DARK));
+        menu_bg.setSize(menu.getWidth() + 2, menu.getHeight() + 2);
+        menu_bg.setPosition(menu.getX() - 1, menu.getY() - 1);
+        addActor(menu_bg);
         addActor(menu);
 
         OneSpriteStaticActor joy_back = new OneSpriteStaticActor(Assets.manager.get(Assets.JOY_BACK));
-        joy_back.setX(getViewport().getWorldWidth() - joy_back.getWidth() - 50);
-        joy_back.setY(50);
+        joy_back.setSize(joy_back.getWidth() / 3, joy_back.getHeight() / 3);
+        joy_back.setX(getViewport().getWorldWidth() - joy_back.getWidth() - 40);
+        joy_back.setY(40);
         addActor(joy_back);
 
         joy = new OneSpriteStaticActor(Assets.manager.get(Assets.JOY_FRONT));
-        centerX = joy_back.getX() - joy_back.getWidth() / 2 + joy.getWidth() / 2;
-        centerY = joy_back.getY() - joy_back.getHeight() / 2 + joy.getHeight() / 2;
+        joy.setSize(joy.getWidth() / 4, joy.getHeight() / 4);
+        centerX = joy_back.getX() + joy_back.getWidth() / 2 - joy.getWidth() / 2;
+        centerY = joy_back.getY() + joy_back.getHeight() / 2 - joy.getHeight() / 2;
         joy.setPosition(centerX ,centerY);
 
         joy.addListener(new DragListener() {
@@ -70,13 +78,13 @@ public class GameHUD extends MyStage{
                 float tx = joy.getX() + x - joy.getWidth() / 2;
                 float ty = joy.getY() + y - joy.getHeight() / 2;
 
-                if(tx < centerX - 45 || tx > centerX + 45){
+                if(tx < centerX - 90 || tx > centerX + 90){
                     joy.setX(joy.getX());
                 }else{
                     joy.setX(tx);
                 }
 
-                if(ty < centerY - 50 || ty > centerY + 50){
+                if(ty < centerY - 100 || ty > centerY + 100){
                     joy.setY(joy.getY());
                 }else{
                     joy.setY(ty);
@@ -107,13 +115,18 @@ public class GameHUD extends MyStage{
         dash = new OneSpriteStaticActor(Assets.manager.get(Assets.DASH));
         dash.setSize(dash.getWidth() / 5, dash.getHeight() / 5);
         dash.setPosition(20, 20);
-        dash.setDebug(true);
+        dash.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                screen.gameStage.dash();
+            }
+        });
         addActor(dash);
 
         eat = new OneSpriteStaticActor(Assets.manager.get(Assets.EAT));
         eat.setSize(eat.getWidth() / 5, eat.getHeight() / 5);
         eat.setPosition(dash.getX() + dash.getWidth() + 10, dash.getY() + dash.getHeight());
-        eat.setDebug(true);
         eat.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -132,6 +145,12 @@ public class GameHUD extends MyStage{
         hungerActor.setPosition(10,getViewport().getWorldHeight() - hungerActor.getHeight() - 10);
         addActor(hungerActor);
 
+        MyLabel hungerLabel = new MyLabel("Éhség", game.getLabelStyle());
+        hungerLabel.setFontScale(0.5f);
+        hungerLabel.setPosition(hungerActor.getX() + hungerActor.getWidth() / 2 - hungerLabel.getWidth() / 4,
+                hungerActor.getY() - hungerActor.getHeight() / 2 - hungerLabel.getHeight() / 10 + 2);
+        addActor(hungerLabel);
+
         suckPixmap = new Pixmap(400, 10, Pixmap.Format.RGBA8888);
         suckActor = new OneSpriteStaticActor(new Texture(suckPixmap));
         updateSuckBar(screen.gameStage.suckTime - screen.gameStage.currSuckTime);
@@ -140,7 +159,7 @@ public class GameHUD extends MyStage{
         suckActor.setVisible(false);
         addActor(suckActor);
 
-        suckLabel = new MyLabel("Szívás...", game.getLabelStyle());
+        suckLabel = new MyLabel("Evés...", game.getLabelStyle());
         suckLabel.setFontScale(0.7f);
         suckLabel.setPosition(getViewport().getWorldWidth() / 2 - (suckLabel.getWidth() * 0.5f) / 2,
                               suckActor.getY() + 10);
@@ -165,7 +184,7 @@ public class GameHUD extends MyStage{
         hungerPixmap.fill();
         hungerPixmap.setColor(1, 0.76f, 0, 0.7f);
         hungerPixmap.fillRectangle(0, 0, (int)(hunger * 2), 20);
-        hungerPixmap.setColor(1, 0.76f, 0, 1);
+        hungerPixmap.setColor(1, 1, 1, 1);
         hungerPixmap.drawRectangle(0, 0, 200, 20);
 
         hungerActor.setTexture(new Texture(hungerPixmap));
@@ -187,6 +206,12 @@ public class GameHUD extends MyStage{
             suckLabel.setVisible(false);
             suckActor.setVisible(false);
             eat.setTexture(Assets.manager.get(Assets.EAT));
+        }
+
+        if(screen.gameStage.dashCurrCD < screen.gameStage.dashCD) {
+            dash.setTexture(Assets.manager.get(Assets.DASH_CD));
+        }else{
+            dash.setTexture(Assets.manager.get(Assets.DASH));
         }
 
         /*screen.gameStage.szunyogDirX = screen.gameStage.mapW - screen.gameStage.szunyog.getX();

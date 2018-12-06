@@ -53,16 +53,23 @@ public class Assets {
 	public static final AssetDescriptor<Texture> SZUNYOG_SUCK = new AssetDescriptor<Texture>("game/szunyog-suck.png", Texture.class);
 
 	//Maps
-	public static final AssetDescriptor<Texture> MAP = new AssetDescriptor<Texture>("map.png", Texture.class);
 	public static final AssetDescriptor<Texture> ARM_MAP = new AssetDescriptor<Texture>("game/kez-map.png", Texture.class);
+	public static final AssetDescriptor<Texture> LEG_MAP = new AssetDescriptor<Texture>("game/lab-map.png", Texture.class);
+	public static final AssetDescriptor<Texture> STOMACH_MAP = new AssetDescriptor<Texture>("game/has-map.png", Texture.class);
 
 	//Other
 	public static final AssetDescriptor<Texture> SUCKED_AREA = new AssetDescriptor<Texture>("game/sucked-area.png", Texture.class);
 	public static final AssetDescriptor<Texture> SUCK_MARK = new AssetDescriptor<Texture>("game/suck-mark.png", Texture.class);
 
+	public static final AssetDescriptor<Texture> ARM = new AssetDescriptor<Texture>("game/arm.png", Texture.class);
+	public static final AssetDescriptor<Texture> ARM_SHADOW = new AssetDescriptor<Texture>("game/arm-shadow.png", Texture.class);
+
+	public static final AssetDescriptor<Texture> MAN = new AssetDescriptor<Texture>("game/man.png", Texture.class);
+
 	//Menu
-	public static final AssetDescriptor<Texture> MENU_BG = new AssetDescriptor<Texture>("bg.png", Texture.class);
+	public static final AssetDescriptor<Texture> MENU_BG = new AssetDescriptor<Texture>("menu.png", Texture.class);
 	public static final AssetDescriptor<Texture> MENU_ICON = new AssetDescriptor<Texture>("menu-icon.png", Texture.class);
+	public static final AssetDescriptor<Texture> BG = new AssetDescriptor<Texture>("bg.png", Texture.class);
 
 	//Controller
 	public static final AssetDescriptor<Texture> JOY_FRONT = new AssetDescriptor<Texture>("joy-front.png", Texture.class);
@@ -87,7 +94,11 @@ public class Assets {
 	public static final AssetDescriptor<Texture> SLIDER_KNOB = new AssetDescriptor<Texture>("ui_textures/sliderknob.png", Texture.class);
 	public static final AssetDescriptor<Texture> SLIDER_KNOBH = new AssetDescriptor<Texture>("ui_textures/sliderknob2.png", Texture.class);
 
+	//Etc UI
+
+
 	//Music
+	public static final AssetDescriptor<Texture> DARK = new AssetDescriptor<Texture>("ui_textures/dark.png", Texture.class);
 
 
 	public static void prepare() {
@@ -103,14 +114,21 @@ public class Assets {
 
 		manager.load(SZUNYOG);
 		manager.load(SZUNYOG_SUCK);
-		manager.load(MAP);
+
 		manager.load(ARM_MAP);
+		manager.load(LEG_MAP);
+		manager.load(STOMACH_MAP);
 
 		manager.load(SUCKED_AREA);
 		manager.load(SUCK_MARK);
 
+		manager.load(ARM);
+		manager.load(ARM_SHADOW);
+		manager.load(MAN);
+
 		manager.load(MENU_BG);
 		manager.load(MENU_ICON);
+		manager.load(BG);
 
 		manager.load(JOY_FRONT);
 		manager.load(JOY_BACK);
@@ -129,6 +147,8 @@ public class Assets {
 		manager.load(SLIDER_BG);
 		manager.load(SLIDER_KNOB);
 		manager.load(SLIDER_KNOBH);
+
+		manager.load(DARK);
 
 		manager.load(ALEGREYAREGULAR_FONT);
 

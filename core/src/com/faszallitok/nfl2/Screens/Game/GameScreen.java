@@ -12,9 +12,9 @@ public class GameScreen extends MyScreen {
     GameHUD gameHud;
     public boolean isPaused = false;
 
-    public GameScreen(MyGdxGame game) {
+    public GameScreen(MyGdxGame game, int level) {
         super(game);
-        gameStage = new GameStage(spriteBatch, game, this);
+        gameStage = new GameStage(spriteBatch, game, this, level);
         hud = new HUD(spriteBatch, game, this);
         gameHud = new GameHUD(spriteBatch, game, this);
 
