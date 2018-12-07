@@ -300,6 +300,7 @@ public class GameStage extends MyStage {
 			if(currSuckTime >= suckTime){
 				isSucking = false;
 				HUNGER += suckHunger;
+				if(HUNGER > 100) HUNGER = 100;
 				finishedSucking();
 				currSuckTime = 0;
 			}else
