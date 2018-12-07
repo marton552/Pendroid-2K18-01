@@ -1,6 +1,7 @@
 package com.faszallitok.nfl2.Screens.Game;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -82,6 +83,8 @@ public class GameStage extends MyStage {
 	private int ellapsedSecs = 0;
 	private int missedStrikes = 0;
 
+	public Sound bzz;
+
 
 	private ArrayList<OneSpriteStaticActor> suckAreas = new ArrayList<OneSpriteStaticActor>();
 	private ArrayList<OneSpriteStaticActor> suckedAreas = new ArrayList<OneSpriteStaticActor>();
@@ -143,6 +146,10 @@ public class GameStage extends MyStage {
 		addActor(arm_shadow);
 		addActor(arm);
 
+		bzz = Assets.manager.get(Assets.BZ_SOUND);
+		bzz.loop();
+		bzz.play(0.4f);
+
 
 		//setCameraMoveToXY(100, 100);
 		//setCameraMoveToZoom(5.0f);
@@ -171,6 +178,8 @@ public class GameStage extends MyStage {
 				currSuckingArea = i;
 				isSucking = true;
 				szunyog.setTexture(Assets.manager.get(Assets.SZUNYOG_SUCK));
+				bzz.stop();
+				Assets.manager.get(Assets.EAT_SOUND).play();
 				break;
 			}
 		}
@@ -180,7 +189,7 @@ public class GameStage extends MyStage {
 		OneSpriteStaticActor area = suckAreas.get(currSuckingArea);
 		dealtDamage++;
 		szunyog.setTexture(Assets.manager.get(Assets.SZUNYOG));
-
+		bzz.play(0.4f);
 		if(suckedAreas.size() >= maxSuckedAreas) {
 			suckedAreas.get(rand.nextInt(suckAreas.size())).setPosition(area.getX(), area.getY());
 		}else{
@@ -226,9 +235,12 @@ public class GameStage extends MyStage {
 		arm.setVisible(false);
 		arm_shadow.setVisible(false);
 
+		Assets.manager.get(Assets.STRIKE_SOUND).play();
+
 		if(szunyog.getX() + szunyog.getWidth() >= arm.getX() && szunyog.getX() <= arm.getX() + arm.getWidth() - 150){
 			System.out.println("szunyog.x = "+szunyog.getX() + " arm.x = " + arm.getX());
 			if(szunyog.getY() + szunyog.getHeight() >= arm.getY() && szunyog.getY() <= arm.getY() + arm.getHeight() - 120) {
+				bzz.stop();
 				game.setScreen(new EndScreen(game, 1, dealtDamage, ellapsedSecs, missedStrikes));
 				return;
 			}
@@ -307,7 +319,7 @@ public class GameStage extends MyStage {
 			currSuckTime += suckSpeed;
 		}else{
 			HUNGER -= hungerLoss;
-			if(HUNGER <= 0) game.setScreen(new EndScreen(game, 0, dealtDamage, ellapsedSecs, missedStrikes)); // End
+			if(HUNGER <= 0) { game.setScreen(new EndScreen(game, 0, dealtDamage, ellapsedSecs, missedStrikes)); bzz.stop(); }// End
 
 			float dash_speed = 1;
 
@@ -354,6 +366,12 @@ public class GameStage extends MyStage {
 		getBatch().end();
 
 		super.draw();
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		bzz.dispose();
 	}
 
 	@Override public void init() {}

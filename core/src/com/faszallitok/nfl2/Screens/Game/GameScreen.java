@@ -2,6 +2,7 @@ package com.faszallitok.nfl2.Screens.Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.faszallitok.nfl2.MusicPlayer;
 import com.faszallitok.nfl2.MyBaseClasses.Scene2D.MyScreen;
 import com.faszallitok.nfl2.MyGdxGame;
 import com.faszallitok.nfl2.Screens.Menu.HUD;
@@ -14,6 +15,7 @@ public class GameScreen extends MyScreen {
 
     public GameScreen(MyGdxGame game, int level) {
         super(game);
+        MusicPlayer.stopMenuMusic();
         gameStage = new GameStage(spriteBatch, game, this, level);
         hud = new HUD(spriteBatch, game, this);
         gameHud = new GameHUD(spriteBatch, game, this);

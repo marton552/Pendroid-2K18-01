@@ -95,10 +95,16 @@ public class Assets {
 	public static final AssetDescriptor<Texture> SLIDER_KNOBH = new AssetDescriptor<Texture>("ui_textures/sliderknob2.png", Texture.class);
 
 	//Etc UI
+	public static final AssetDescriptor<Texture> DARK = new AssetDescriptor<Texture>("ui_textures/dark.png", Texture.class);
 
+	//Sounds
+	public static final AssetDescriptor<Sound> STRIKE_SOUND = new AssetDescriptor<Sound>("sounds/strike.ogg", Sound.class);
+	public static final AssetDescriptor<Sound> EAT_SOUND = new AssetDescriptor<Sound>("sounds/eat.ogg", Sound.class);
+	public static final AssetDescriptor<Sound> BZ_SOUND = new AssetDescriptor<Sound>("sounds/bz.ogg", Sound.class);
 
 	//Music
-	public static final AssetDescriptor<Texture> DARK = new AssetDescriptor<Texture>("ui_textures/dark.png", Texture.class);
+	public static final AssetDescriptor<Music> MENU_MUSIC = new AssetDescriptor<Music>("zene/1.ogg", Music.class);
+
 
 
 	public static void prepare() {
@@ -149,6 +155,12 @@ public class Assets {
 		manager.load(SLIDER_KNOBH);
 
 		manager.load(DARK);
+
+		manager.load(STRIKE_SOUND);
+		manager.load(EAT_SOUND);
+		manager.load(BZ_SOUND);
+
+		manager.load(MENU_MUSIC);
 
 		manager.load(ALEGREYAREGULAR_FONT);
 
